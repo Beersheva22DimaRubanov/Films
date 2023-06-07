@@ -1,0 +1,84 @@
+.title{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    text-align: center;
+    font-size: 48px;
+}
+
+#menu-place{
+    display: flex;
+    align-items: center;
+    margin: 40px 30px;
+}
+
+.menu-button{
+    outline: 0;
+    padding: 5px;
+    margin-right: 20px;
+    background-color: rgb(125, 164, 230);
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.active{
+    background-color: rgb(235, 190, 151);
+}
+
+#movies-place-container{
+    margin: 0 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#movies-place-film-container{
+    /* max-width: 300px; */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.film-card{
+    border-radius: 5px;
+    margin: 25px 20px;
+    box-sizing: border-box;
+    overflow: hidden;
+    border: 1px solid black;
+    cursor: pointer;
+    background-color:#666060;;
+    color: white;
+    /* height: 330px; */
+}
+
+.film-card-image{
+    width: 200px;
+    max-height: 330px;
+    max-height: fit-content;
+}
+
+.film-card-title{
+    max-width: 200px;
+   
+    height: 50px;
+    text-align: center;
+    font-weight: bold;
+}
+
+
+#pages-place{
+    margin-bottom: 50px;
+    margin-top: 25px;
+}
+
+.page-button{
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.page-active{
+    color: blue;
+}
