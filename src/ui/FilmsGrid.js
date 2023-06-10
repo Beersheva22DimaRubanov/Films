@@ -8,10 +8,16 @@ export default class FilmsGrid {
     #pagesCallback
     #filmCardCallback
     #filmCards;
+    #parentId
+    #filmsCardsId;
+    #pagesPlace;
     
 
-    constructor(parentId, filmCardCallback) {
-        this.#buildFilmPlace(parentId);
+    constructor(parentId, filmsCardsId, filmCardCallback, pagesPlace) {
+        this.#filmsCardsId = filmsCardsId;
+        this.#parentId =parentId;
+        this.#pagesPlace = pagesPlace;
+        this.#buildFilmPlace(filmsCardsId);
         this.#buttons = "";
         this.#filmCards =[];
         this.#filmCardCallback = filmCardCallback
@@ -19,28 +25,29 @@ export default class FilmsGrid {
 
     #buildFilmPlace(parentId) {
        const parentElement = document.getElementById(parentId)
-        parentElement.innerHTML = `<div id = "${parentId}-film-container"></div>`
-        this.#filmsContainer = document.getElementById(parentId + "-film-container")
+        this.#filmsContainer = document.getElementById(parentId)
     }
 
-    async fillData(films, imageUrl, callback){
-        this.#filmsContainer.innerHTML = await films.results.map( (film) => this.#createFilmCard(film, imageUrl)).join('');
+     fillData(films, imageUrl, callback){
+        this.#filmsContainer.innerHTML =  films.map( (film) => this.#createFilmCard(film, imageUrl)).join('');
         this.#currentPage = films.page;
         this.#pages = films.total_pages;
         this.#showPages();
         this.#pagesCallback = callback;
-        // this.#filmCards = document.getElementsByClassName('film-card');
-        // this.#filmCardsAddListener(this.#filmCards);
+        const parentElement = document.getElementById(this.#filmsCardsId)
+        this.#filmCards = parentElement.childNodes;
+        this.#filmCardsAddListener();
     }
 
-    #filmCardsAddListener(filmCards){
-        filmCards.forEach(el => {
+    #filmCardsAddListener(){
+        console.log(typeof this.#filmCards); 
+        this.#filmCards.forEach(el => {
             el.addEventListener('click', this.#filmCardHandler.bind(this, (el.id)))
         })
     }
 
     #filmCardHandler(id){
-        document,getElementById("filmes-placs").hidden = true;
+        document.getElementById(this.#parentId).style.display = "none";
         this.#filmCardCallback(id);
     }
 
@@ -57,7 +64,7 @@ export default class FilmsGrid {
             this.#buttons +=  `<button class ='page-button' value ='${i}'>${i}</button>`;
         }
         this.#buttons += `<button class ='page-button' value = ${this.#pages}>...${this.#pages}</button>`
-       const parentElement = document.getElementById('pages-place');
+       const parentElement = document.getElementById(this.#pagesPlace);
         parentElement.innerHTML = this.#buttons;
         this.#buttons = parentElement.childNodes;
         this.#addListeners()
@@ -79,7 +86,7 @@ export default class FilmsGrid {
     }
 
     #createFilmCard(film, imageUrl){
-        return `<div class = "film-card" id='${film.id} data="film-card"> 
+        return `<div class = "film-card" id='${film.id}' data="film-card"> 
                     <img src = "${imageUrl + film.poster_path}" class ="film-card-img"/>
                     <div class ="film-card-title"> ${film.title}</div>
                     <div class = "film-card-date">Year: ${film.release_date.slice(0, 4)}</div>

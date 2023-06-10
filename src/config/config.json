@@ -3,5 +3,7 @@
    "popularFilms": "/popular?language=en-US&page=",
    "nowPlayingFilms": "/now_playing?language=en-US&page=",
    "apiKey": "&api_key=2c46288716a18fb7aadcc2a801f3fc6b",
-   "cardImageUrl": "https://image.tmdb.org/t/p/w200"
+   "cardImageUrl": "https://image.tmdb.org/t/p/w200",
+   "filmInfoImageUrl": "https://image.tmdb.org/t/p/w500",
+   "jsonUrl": "http://localhost:3500/users"
 }

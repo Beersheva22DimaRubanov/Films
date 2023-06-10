@@ -14,7 +14,7 @@
     outline: 0;
     padding: 5px;
     margin-right: 20px;
-    background-color: rgb(125, 164, 230);
+    background-color: #9FC5E8;
     border: 1px solid black;
     border-radius: 5px;
     cursor: pointer;
@@ -32,7 +32,7 @@
     align-items: center;
 }
 
-#movies-place-film-container{
+#movies-place{
     /* max-width: 300px; */
     display: flex;
     flex-direction: row;
@@ -82,3 +82,61 @@
 .page-active{
     color: blue;
 }
+
+#movie-info-place{
+    display: flex;
+    flex-direction: row;
+    margin:2em
+
+}
+
+.movie-info-place-img{
+    margin-right: 2em;
+}
+
+.movie-info-place-img img{
+    max-width: 400px;
+}
+
+.movie-info-place-title{
+    margin: 0;
+    font-size: 2em;
+}
+
+.movie-info-place-tagline{
+    margin-top: 0.5em;
+}
+
+.movie-info-place-overview{
+    margin-top: 3em;
+    margin-bottom: 10em;
+    text-align: justify;
+}
+
+#movie-info-place-buttons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.movie-info-place-button{
+    padding: 0.7em 1.5em;
+    cursor: pointer;
+    background-color: #9FC5E8;
+    margin: 0.5em;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    font-size: 1em;
+}
+
+.movie-info-place-button:not([disabled]):hover{
+    background-color: #0B5394;
+    color: white;
+}
+
+ .movie-info-place-button:disabled{
+    cursor: auto; 
+} 
+
+
