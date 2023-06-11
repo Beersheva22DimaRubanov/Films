@@ -1,4 +1,3 @@
-const PAGE_LIMIT = 500;
 
 export default class FilmsGrid {
     #pages;
@@ -11,81 +10,86 @@ export default class FilmsGrid {
     #parentId
     #filmsCardsId;
     #pagesPlace;
-    
+
 
     constructor(parentId, filmsCardsId, filmCardCallback, pagesPlace) {
         this.#filmsCardsId = filmsCardsId;
-        this.#parentId =parentId;
+        this.#parentId = parentId;
         this.#pagesPlace = pagesPlace;
         this.#buildFilmPlace(filmsCardsId);
         this.#buttons = "";
-        this.#filmCards =[];
+        this.#filmCards = [];
         this.#filmCardCallback = filmCardCallback
     }
 
     #buildFilmPlace(parentId) {
-       const parentElement = document.getElementById(parentId)
+        const parentElement = document.getElementById(parentId)
         this.#filmsContainer = document.getElementById(parentId)
     }
 
-     fillData(films, imageUrl, callback){
-        this.#filmsContainer.innerHTML =  films.map( (film) => this.#createFilmCard(film, imageUrl)).join('');
-        this.#currentPage = films.page;
-        this.#pages = films.total_pages;
+    fillData(films, imageUrl, pagesCallback, pages, page) {
+        this.#filmsContainer.innerHTML = films.map((film) => this.#createFilmCard(film, imageUrl)).join('');
+        this.#currentPage = page;
+        this.#pages = pages;
         this.#showPages();
-        this.#pagesCallback = callback;
+        this.#pagesCallback = pagesCallback;
         const parentElement = document.getElementById(this.#filmsCardsId)
         this.#filmCards = parentElement.childNodes;
         this.#filmCardsAddListener();
     }
 
-    #filmCardsAddListener(){
-        console.log(typeof this.#filmCards); 
+    #filmCardsAddListener() {
+        console.log(typeof this.#filmCards);
         this.#filmCards.forEach(el => {
             el.addEventListener('click', this.#filmCardHandler.bind(this, (el.id)))
         })
     }
 
-    #filmCardHandler(id){
+    #filmCardHandler(id) {
         document.getElementById(this.#parentId).style.display = "none";
         this.#filmCardCallback(id);
     }
 
-    #showPages(){
-        this.#buttons = `<button class ='page-button' value = 1>Go First</button>`;
-        let i;
-        if(this.#currentPage == this.#pages || this.#currentPage + 10 >= this.#pages){
-            i = this.#pages - 10;
-        } else{
-            i = this.#currentPage;
-        }
-        // let i = this.#currentPage == this.#pages? this.#pages - 10: this.#currentPage;
-        for(i ; i<this.#currentPage + 10 && i <= this.#pages; i++){
-            this.#buttons +=  `<button class ='page-button' value ='${i}'>${i}</button>`;
-        }
-        this.#buttons += `<button class ='page-button' value = ${this.#pages}>...${this.#pages}</button>`
-       const parentElement = document.getElementById(this.#pagesPlace);
-        parentElement.innerHTML = this.#buttons;
-        this.#buttons = parentElement.childNodes;
-        this.#addListeners()
 
+    #showPages() {
+        if (this.#pages) {
+            
+            let i;
+
+            if (this.#currentPage == this.#pages || this.#currentPage + 10 >= this.#pages) {
+                i = this.#pages - 10;
+            } else {
+                i = this.#currentPage;
+            }
+            let pageButtons = `<button class ='page-button' ${i == 1 ? 'disabled' : ''} value = ${i - 1}>prev</button>`;
+            pageButtons += `<button class ='page-button' value = 1>Go First</button>`;
+            for (i; i < this.#currentPage + 10 && i <= this.#pages; i++) {
+                pageButtons += `<button class ='page-button' value ='${i}' id = 'page-${i}'>${i}</button>`;
+            }
+            pageButtons += `<button class ='page-button' value = ${this.#pages}>...${this.#pages}</button>`
+            pageButtons += `<button class ='page-button' value = ${i - 9}>next</button>`
+            const parentElement = document.getElementById(this.#pagesPlace);
+            parentElement.innerHTML = pageButtons;
+            this.#buttons = parentElement.childNodes;
+            document.getElementById(`page-${this.#currentPage}`).classList.add('page-active');
+            this.#addListeners()
+        }
     }
 
-    #addListeners(){
+    #addListeners() {
         this.#buttons.forEach((b) => {
             b.addEventListener('click', this.#pageHandler.bind(this, (b.value)))
         });
     }
 
-    async #pageHandler(index){
-        if(!this.#currentPage == undefined || this.#currentPage != index){
-            // this.#buttons[this.#currentPage-1].classList.remove('page-active')
-            this.#buttons[index-1].classList.add('page-active');
-            index <= 500 ? await  this.#pagesCallback(index): alert(`Please choose page from 1 to ${PAGE_LIMIT}`);
-        }
+    async #pageHandler(index) {
+
+        this.#buttons[this.#currentPage - 1].classList.remove('page-active')
+        await this.#pagesCallback(index)
+
     }
 
-    #createFilmCard(film, imageUrl){
+    #createFilmCard(film, imageUrl) {
         return `<div class = "film-card" id='${film.id}' data="film-card"> 
                     <img src = "${imageUrl + film.poster_path}" class ="film-card-img"/>
                     <div class ="film-card-title"> ${film.title}</div>

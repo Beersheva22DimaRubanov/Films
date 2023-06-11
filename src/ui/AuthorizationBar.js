@@ -17,7 +17,6 @@ export default class AuthorizationBar{
         <button class='auth-button'>Sign in</button>
         <button class='auth-button'>Sign up</button>
         <button class='auth-button' hidden>Log out</button>`
-
         this.#buttons = parentElement.getElementsByClassName('auth-button');
         this.#addListeners();
     }
@@ -30,7 +29,7 @@ export default class AuthorizationBar{
     }
 
     async #handler(index){
-        document.getElementById("authorization-place").style.display = 'block';
+        document.getElementById("authorization-place").style.display = 'flex';
         Array.from(this.#hiddenElements).forEach(el => document.getElementById(el).style.display = 'none')
        await this.#callback(index)
     }
@@ -43,7 +42,9 @@ export default class AuthorizationBar{
         document.getElementById("authorization-place").style.display = 'none';
     }
 
-    logout(){
-        
+    logOut(){
+        const textElement = document.getElementById(`${this.#parentId}-text`);
+        textElement.hidden = true;
+        this.#buttons.map(b => b.hidden?b.hidden=false: b.hidden = true);
     }
 }

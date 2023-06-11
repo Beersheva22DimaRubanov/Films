@@ -5,5 +5,7 @@
    "apiKey": "&api_key=2c46288716a18fb7aadcc2a801f3fc6b",
    "cardImageUrl": "https://image.tmdb.org/t/p/w200",
    "filmInfoImageUrl": "https://image.tmdb.org/t/p/w500",
-   "jsonUrl": "http://localhost:3500/users"
+   "jsonUrl": "http://localhost:3500/users",
+   "genresUrl": "https://api.themoviedb.org/3/genre/movie/list?language=en",
+   "searchUrl": "https://api.themoviedb.org/3/discover/movie?"
 }

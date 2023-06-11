@@ -30,11 +30,10 @@ export default class MenuBar {
     }
 
     async #handler(index) {
-        if (!this.#activeIndex == undefined || index != this.#activeIndex) {
+         {
             if (this.#activeIndex != undefined) {
                 this.#buttons[this.#activeIndex].classList.remove('active');
                 this.#sectionElements[this.#activeIndex].style.display = 'none';
-             
             }
             this.#hidenElements.forEach(el => document.getElementById(el).style.display = 'none');
             this.#buttons[index].classList.add('active');

@@ -7,6 +7,7 @@
 #menu-place{
     display: flex;
     align-items: center;
+    justify-content: space-between;
     margin: 40px 30px;
 }
 
@@ -22,6 +23,72 @@
 
 .active{
     background-color: rgb(235, 190, 151);
+}
+
+#authorization-menu-place{
+    display: flex;
+    /* flex-direction: column; */
+    align-items: center;
+
+}
+
+.auth-button{
+    background: #ea9563;
+    padding: 10px 15px;
+    border: 1px solid transparent;
+    border-radius: 15px;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.auth-button:hover{
+    background-color: #ef600e;
+}
+
+#authorization-place{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-control{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 7em;
+    border: 2px solid black;
+    box-sizing: border-box;
+    border-radius: 15px;
+    /* max-width: 300px; */
+    padding: 25px 50px;
+}
+
+.form-input{
+    margin-top: 2em;
+    padding: 0.7em 2em;
+    border: none;
+    border: 1px solid black;
+    max-width: 200px;
+    border-radius: 10px;
+}
+
+.submit-button{
+    padding: 0.6em 1.5em;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    background-color: #9FC5E8;
+    margin-top: 1.5em
+}
+
+.error{
+    border: 1px solid red
+}
+
+.error-message{
+    color: red;
+    font-size: small;
+    margin-top: 0.4em;
 }
 
 #movies-place-container{
@@ -81,6 +148,8 @@
 
 .page-active{
     color: blue;
+    font-size: large;
+
 }
 
 #movie-info-place{

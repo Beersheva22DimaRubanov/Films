@@ -4,11 +4,15 @@ export default class FilmService{
     #baseUrl;
     #jsonUrl
     #user
+    #genresUrl
+    #searchUrl
 
-    constructor(baseUrl, apiKey, jsonUrl){
+    constructor(baseUrl, apiKey, jsonUrl, genresUrl, searchUrl){
         this.#apiKey = apiKey;
         this.#baseUrl = baseUrl;
         this.#jsonUrl = jsonUrl;
+        this.#genresUrl = genresUrl;
+        this.#searchUrl = searchUrl;
     }
 
     async  getPopularFilms( filmsType, page){
@@ -21,13 +25,31 @@ export default class FilmService{
 
     async #getFilms(page, filmsType){
         const response = await fetch(this.#baseUrl + filmsType + page + this.#apiKey);
-        // const jsonRes = await response.json();
-        return  response.json();
+        if(response.ok){
+            return  response.json();
+        } else{
+            response.json().then(d => alert(d.errors))
+        }
+    
     }
 
     async getFilmInfo(id){
         const response = await fetch(this.#baseUrl + "/"+ id + "?language=en-US" + this.#apiKey);
         return response.json()
+    }
+    
+    async getGenres(){
+        const response = await fetch(`${this.#genresUrl}${this.#apiKey}`)
+        return response.json();
+    }
+
+    //https://api.themoviedb.org/3/discover/movie?page=1&primary_release_year=1900&sort_by=popularity.desc
+    //&api_key=2c46288716a18fb7aadcc2a801f3fc6b
+    async searchMovies(dataObj, page){
+        const params = `page=${page}${dataObj.year != ''? `&primary_release_year=${dataObj.year}`:''}${dataObj.genre != ''? `&with_genres=${dataObj.genre}`:''}${dataObj.company? `&with_companies=${dataObj.company}`: ''}&sort_by=popularity.desc${this.#apiKey}`;
+        const response = await fetch(`${this.#searchUrl}${params}`);
+        return response.json();
+        
     }
 
     async createUser(email, password){
@@ -48,14 +70,13 @@ export default class FilmService{
 
     async getFilmsFromUserList(listName, id){
         const user = await this.getUserById(id);
-        // const user = await response.json();
         return user[listName]
     }
 
     async getUser(email, password){
-        const response = await fetch(`${this.#jsonUrl}?email=${email}&password=${password}`)
-        this.#user = response.json()
-        return this.#user
+        const response = await fetch(`${this.#jsonUrl}?email=${email}${password? `&password=${password}` : ''}`)
+        // this.#user = response.json()
+        return response.json()
     }
 
     async getUserById(id){
@@ -67,7 +88,6 @@ export default class FilmService{
         const user = await this.getUserById(id);
         let moviesList = user[listName];
         moviesList.includes(filmId)? moviesList.splice(moviesList.indexOf(filmId), 1): moviesList.push(filmId); 
-        // user[listName].push(filmId);
         console.log("list: " + user[listName])
         const response = await fetch(`${this.#jsonUrl}/${user.id}`, {
             method: 'PUT',
