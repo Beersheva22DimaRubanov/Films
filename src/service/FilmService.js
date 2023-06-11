@@ -3,7 +3,6 @@ export default class FilmService{
     #apiKey;
     #baseUrl;
     #jsonUrl
-    #user
     #genresUrl
     #searchUrl
 
@@ -43,8 +42,6 @@ export default class FilmService{
         return response.json();
     }
 
-    //https://api.themoviedb.org/3/discover/movie?page=1&primary_release_year=1900&sort_by=popularity.desc
-    //&api_key=2c46288716a18fb7aadcc2a801f3fc6b
     async searchMovies(dataObj, page){
         const params = `page=${page}${dataObj.year != ''? `&primary_release_year=${dataObj.year}`:''}${dataObj.genre != ''? `&with_genres=${dataObj.genre}`:''}${dataObj.company? `&with_companies=${dataObj.company}`: ''}&sort_by=popularity.desc${this.#apiKey}`;
         const response = await fetch(`${this.#searchUrl}${params}`);
@@ -75,7 +72,6 @@ export default class FilmService{
 
     async getUser(email, password){
         const response = await fetch(`${this.#jsonUrl}?email=${email}${password? `&password=${password}` : ''}`)
-        // this.#user = response.json()
         return response.json()
     }
 
