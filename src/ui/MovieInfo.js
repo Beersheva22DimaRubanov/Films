@@ -1,4 +1,4 @@
-export default class FilmInfo {
+export default class MovieInfo {
     #parentId;
     #buttons;
     #homePage;

@@ -1,5 +1,5 @@
 
-export default class FilmService{
+export default class MovieService{
     #apiKey;
     #baseUrl;
     #jsonUrl
@@ -15,14 +15,14 @@ export default class FilmService{
     }
 
     async  getPopularFilms( filmsType, page){
-        return this.#getFilms(page, filmsType)
+        return this.#getMovies(page, filmsType)
     }
 
     async getNowPlayingFilms(page, filmsType){
-        return this.#getFilms(page, filmsType);
+        return this.#getMovies(page, filmsType);
     }
 
-    async #getFilms(page, filmsType){
+    async #getMovies(page, filmsType){
         const response = await fetch(this.#baseUrl + filmsType + page + this.#apiKey);
         if(response.ok){
             return  response.json();
@@ -32,7 +32,7 @@ export default class FilmService{
     
     }
 
-    async getFilmInfo(id){
+    async getMovieInfo(id){
         const response = await fetch(this.#baseUrl + "/"+ id + "?language=en-US" + this.#apiKey);
         return response.json()
     }
@@ -65,7 +65,7 @@ export default class FilmService{
      
     }
 
-    async getFilmsFromUserList(listName, id){
+    async getMoviesFromUserList(listName, id){
         const user = await this.getUserById(id);
         return user[listName]
     }

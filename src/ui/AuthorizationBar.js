@@ -13,7 +13,8 @@ export default class AuthorizationBar{
 
     #fillData(parentId){
         const parentElement = document.getElementById(parentId);
-        parentElement.innerHTML = `<div id='${parentId}-text' class='auth-text' hidden></div> 
+        parentElement.innerHTML = `
+        <div id='${parentId}-text' class='auth-text' hidden></div> 
         <button class='auth-button'>Sign in</button>
         <button class='auth-button'>Sign up</button>
         <button class='auth-button' hidden>Log out</button>`

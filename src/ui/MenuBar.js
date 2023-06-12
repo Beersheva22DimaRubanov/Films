@@ -4,6 +4,7 @@ export default class MenuBar {
     #activeIndex;
     #callback;
     #hidenElements;
+    #isSignIn
     
     constructor(parentId, sections, callback, hidenElements) {
         this.#fillButtons(parentId, sections.map(t => t.title));
@@ -15,9 +16,10 @@ export default class MenuBar {
 
     #fillButtons(parentId, titles) {
         const parentElement = document.getElementById(parentId);
-        parentElement.innerHTML = titles.map(t => `<button class = 'menu-button'>${t}</button>`).join('');
+        parentElement.innerHTML = titles.map(t => `<button class = 'menu-button'> ${t}</button>`).join('');
         this.#buttons = parentElement.childNodes;
     }
+
 
     #setSectionElements(sectionIds) {
         this.#sectionElements = sectionIds.map(id => document.getElementById(id));

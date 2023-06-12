@@ -1,5 +1,5 @@
 
-export default class FilmsGrid {
+export default class MoviesGrid {
     #pages;
     #filmsContainer;
     #currentPage;
@@ -22,12 +22,17 @@ export default class FilmsGrid {
         this.#filmCardCallback = filmCardCallback
     }
 
+    #buildTitle(title){
+        return `<h2 class = 'page-title'>${title}</h2>`
+    }
+
     #buildFilmPlace(parentId) {
         const parentElement = document.getElementById(parentId)
         this.#filmsContainer = document.getElementById(parentId)
     }
 
-    fillData(films, imageUrl, pagesCallback, pages, page) {
+    fillData(films, imageUrl, title, pagesCallback, pages, page) {
+        document.getElementById(`${this.#parentId}-title`).innerHTML = this.#buildTitle(title) 
         this.#filmsContainer.innerHTML = films.map((film) => this.#createFilmCard(film, imageUrl)).join('');
         this.#currentPage = page;
         this.#pages = pages;
@@ -36,6 +41,12 @@ export default class FilmsGrid {
         const parentElement = document.getElementById(this.#filmsCardsId)
         this.#filmCards = parentElement.childNodes;
         this.#filmCardsAddListener();
+    }
+
+    removeEverithyng(){
+        this.#filmsContainer.innerHTML = '';
+        document.getElementById(this.#pagesPlace).innerHTML='';
+        document.getElementById(`${this.#parentId}-title`).innerHTML='';
     }
 
     #filmCardsAddListener() {
@@ -52,6 +63,7 @@ export default class FilmsGrid {
 
 
     #showPages() {
+        document.getElementById(this.#pagesPlace).innerHTML='';
         if (this.#pages) {
             
             let i;
