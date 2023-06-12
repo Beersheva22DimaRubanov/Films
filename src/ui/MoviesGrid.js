@@ -23,7 +23,9 @@ export default class MoviesGrid {
     }
 
     #buildTitle(title){
-        return `<h2 class = 'page-title'>${title}</h2>`
+        let res;
+        title? res =`<h2 class = 'page-title'>${title}</h2>`: res = ''
+        return res;
     }
 
     #buildFilmPlace(parentId) {
@@ -65,9 +67,7 @@ export default class MoviesGrid {
     #showPages() {
         document.getElementById(this.#pagesPlace).innerHTML='';
         if (this.#pages) {
-            
             let i;
-
             if (this.#currentPage == this.#pages || this.#currentPage + 10 >= this.#pages) {
                 i = this.#pages - 10;
             } else {
@@ -94,10 +94,10 @@ export default class MoviesGrid {
         });
     }
 
-    async #pageHandler(index) {
+    async #pageHandler(value) {
 
         this.#buttons[this.#currentPage - 1].classList.remove('page-active')
-        await this.#pagesCallback(index)
+        await this.#pagesCallback(value)
 
     }
 

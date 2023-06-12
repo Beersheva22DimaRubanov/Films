@@ -26,7 +26,6 @@ export default class AuthorizationForm {
         const formElement = document.getElementById(`${this.#parentId}-form`);
         formElement.addEventListener('submit', b => {
             b.preventDefault();
-
             const formData = new FormData(formElement);
             if (document.getElementById(`${this.#parentId}-confirm`).hidden == false &&
                 formData.get('confirm') != formData.get('password')) {

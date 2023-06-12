@@ -14,20 +14,12 @@ export default class MovieService{
         this.#searchUrl = searchUrl;
     }
 
-    async  getPopularFilms( filmsType, page){
-        return this.#getMovies(page, filmsType)
-    }
-
-    async getNowPlayingFilms(page, filmsType){
-        return this.#getMovies(page, filmsType);
-    }
-
-    async #getMovies(page, filmsType){
+    async getMovies( filmsType, page, errorMessage){
         const response = await fetch(this.#baseUrl + filmsType + page + this.#apiKey);
         if(response.ok){
             return  response.json();
         } else{
-            response.json().then(d => alert(d.errors))
+            response.json().then(d => errorMessage(d.errors))
         }
     
     }
@@ -46,14 +38,9 @@ export default class MovieService{
         const params = `page=${page}${dataObj.year != ''? `&primary_release_year=${dataObj.year}`:''}${dataObj.genre != ''? `&with_genres=${dataObj.genre}`:''}${dataObj.company? `&with_companies=${dataObj.company}`: ''}&sort_by=popularity.desc${this.#apiKey}`;
         const response = await fetch(`${this.#searchUrl}${params}`);
         return response.json();
-        
     }
 
     async createUser(email, password){
-        const isCreated = await this.getUser(email);
-        if(Object.keys(isCreated).length != 0){
-            alert('There is a user with such email')
-        } else{
             const user = {email, password, 'favoriteList': [], 'watchingList': []}
             const response = await fetch(this.#jsonUrl, {
                 method: 'POST',
@@ -61,8 +48,6 @@ export default class MovieService{
                 body: JSON.stringify(user)
             });
             return await response.json();
-        }
-     
     }
 
     async getMoviesFromUserList(listName, id){
@@ -92,5 +77,4 @@ export default class MovieService{
         });
         return await response.json();
     }
-
 }

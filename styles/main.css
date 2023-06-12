@@ -15,10 +15,12 @@
     outline: 0;
     padding: 5px;
     margin-right: 20px;
+    margin-bottom: 10px;
     background-color: #9FC5E8;
     border: 1px solid black;
     border-radius: 5px;
     cursor: pointer;
+    width: 10em;
 }
 
 .active{
@@ -38,6 +40,8 @@
     border-radius: 15px;
     cursor: pointer;
     margin: 0 5px;
+    max-width: 7em;
+    min-width: 5em;
 }
 
 .auth-button:hover{
@@ -57,6 +61,7 @@
     justify-content: center;
     flex-direction: column;
     margin-top: 2em;
+    margin-bottom: 5em;
     border: 2px solid black;
     box-sizing: border-box;
     border-radius: 15px;
@@ -236,6 +241,21 @@ select{
     display: none;
     z-index: 20000000;
   }
+
+  #modal-message-place{
+    position: fixed;
+    display: none;
+    top: 50%;
+    left: 50%;
+    border: 1px solid black;
+    padding: 25px 50px;
+    z-index: 200;
+    border-radius: 15px;
+    background-color: white;
+  }
+
+  
+
   
   @keyframes spin {
     0% { transform: rotate(0deg); }
@@ -249,6 +269,23 @@ select{
     display: none;
     position: fixed;
     top: 0;
+  }
+
+  @media(max-width: 950px) {
+   
+    #movie-menu-place{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .auth-text{
+        display: none;
+    }
+
+
   }
 
 
