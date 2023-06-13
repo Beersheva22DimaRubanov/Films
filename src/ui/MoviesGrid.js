@@ -40,7 +40,6 @@ export default class MoviesGrid {
     }
 
     #filmCardsAddListener() {
-        console.log(typeof this.#filmCards);
         this.#filmCards.forEach(el => {
             el.addEventListener('click', this.#filmCardHandler.bind(this, (el.id)))
         })

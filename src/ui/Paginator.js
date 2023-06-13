@@ -1,18 +1,17 @@
-export default class Paginator{
+export default class Paginator {
     #parentId;
     #buttons
-    #currentPage
+    #currentElement
     #pagesCallback
 
-    constructor(parentId){
+    constructor(parentId) {
         this.#parentId = parentId;
     }
 
-    filldata(pages, currentPage, pagesCallback){
+    filldata(pages, currentPage, pagesCallback) {
         this.#pagesCallback = pagesCallback;
-        this.#currentPage = currentPage;
         const parentElement = document.getElementById(this.#parentId);
-        document.getElementById(this.#parentId).innerHTML='';
+        document.getElementById(this.#parentId).innerHTML = '';
         if (pages) {
             let i;
             if (currentPage == pages || currentPage + 10 >= pages) {
@@ -29,10 +28,12 @@ export default class Paginator{
             pageButtons += `<button class ='page-button' value = ${i - 9}>next</button>`
             parentElement.innerHTML = pageButtons;
             this.#buttons = parentElement.childNodes;
-            document.getElementById(`page-${currentPage}`).classList.add('page-active');
+            this.#currentElement = document.getElementById(`page-${currentPage}`);
+
+            this.#currentElement.classList.add('page-active');
             this.#addListeners()
-        } else{
-           parentElement.innerHTML = ''
+        } else {
+            parentElement.innerHTML = ''
         }
     }
 
@@ -43,9 +44,7 @@ export default class Paginator{
     }
 
     async #pageHandler(value) {
-
-        this.#buttons[this.#currentPage - 1].classList.remove('page-active')
+        this.#currentElement.classList.remove('page-active')
         await this.#pagesCallback(value)
-
     }
 }
