@@ -8,7 +8,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 40px 30px;
+    margin: 20px 30px;
 }
 
 .menu-button{
@@ -111,6 +111,7 @@ select{
 }
 
 #movies-place-container{
+    position: relative;
     margin: 0 40px;
     display: flex;
     flex-direction: column;
@@ -118,8 +119,15 @@ select{
     align-items: center;
 }
 
+#movies-place-container-title{
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background: white;
+    text-align: center;
+}
+
 #movies-place{
-    /* max-width: 300px; */
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -139,15 +147,14 @@ select{
     /* height: 330px; */
 }
 
-.film-card-image{
+.film-card img{
     width: 200px;
-    max-height: 330px;
+    height: 300px;
     max-height: fit-content;
 }
 
 .film-card-title{
     max-width: 200px;
-   
     height: 50px;
     text-align: center;
     font-weight: bold;
@@ -155,8 +162,14 @@ select{
 
 
 #pages-place{
-    margin-bottom: 50px;
-    margin-top: 25px;
+    position: sticky;
+    left: 50%;
+    top: 60px;
+    width: 100%;
+    background-color: white;
+    z-index: 2;
+    padding: 10px;
+    text-align: center;
 }
 
 .page-button{
@@ -247,14 +260,33 @@ select{
     display: none;
     top: 50%;
     left: 50%;
+    transform: translate(-50%, -50%);
     border: 1px solid black;
     padding: 25px 50px;
     z-index: 200;
     border-radius: 15px;
     background-color: white;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
   }
 
-  
+.modal-text{
+    margin: 25px 0;
+}
+
+.modal-btn{
+    cursor: pointer;
+    padding: 0.3em 2em;
+    border-radius: 15px;
+    background-color: #3498db;
+}
+
+.modal-btn:hover{
+    background-color: #0B5394;
+    color: white;
+}
 
   
   @keyframes spin {

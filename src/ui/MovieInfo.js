@@ -22,7 +22,7 @@ export default class MovieInfo {
         const genres = film.genres.map(s => s.name);
         const parentElement = document.getElementById(this.#parentId)
         parentElement.innerHTML = `<div class='${this.#parentId}-img'>
-            <img src = '${imageUrl + film.poster_path}'>
+            <img src = '${film.poster_path != null ? imageUrl + film.poster_path: './src/img/noImage.png'}'>
         </div>
         <div class = '${this.#parentId}-container'>
             <h1 class= '${this.#parentId}-title'>${film.title}</h1>
